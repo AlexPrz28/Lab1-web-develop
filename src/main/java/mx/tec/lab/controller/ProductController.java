@@ -26,15 +26,18 @@ import mx.tec.lab.manager.ProductManager;
 import mx.tec.lab.vo.Product;
 
 /**
+ * productController class
  * @author alejandroperez
- *
  */
 @RestController
 public class ProductController {
 	
 	@Resource
 	private ProductManager productManager;
-	
+	/**
+	 * The end point for GET {url}/products
+	 * @return status 200 if there are products
+	 */
 	@GetMapping("/products")
 	public ResponseEntity<List<Product>> getProducts() {
 		List<Product> products = productManager.getProducts();
@@ -42,7 +45,11 @@ public class ProductController {
 		ResponseEntity<List<Product>> responseEntity = new ResponseEntity<>(products, HttpStatus.OK);
 		return responseEntity;
 	}
-	
+	/**
+	 * The end point for GET {url}/products/{id}
+	 * @param id
+	 * @return status 200 if the specific product id is found or 204 if is not found
+	 */
 	@GetMapping("/products/{id}")
 	public ResponseEntity<Product> getProduct(@PathVariable(value = "id") String id) {
 		ResponseEntity<Product> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -55,7 +62,11 @@ public class ProductController {
 		
 		return responseEntity;
 	}
-	
+	/**
+	 * The end point for POST {url}/products
+	 * @param newProduct
+	 * @return status 201 if the new product content is correct or 400 if the data is not correct
+	 */
 	@PostMapping("/products")
 	public ResponseEntity<Product> addProduct(@RequestBody Product newProduct) {
 		ResponseEntity<Product> responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -68,7 +79,12 @@ public class ProductController {
 		
 		return responseEntity;
 	}
-	
+	/**
+	 * The end point for PUT {url}/products/{id}
+	 * @param id
+	 * @param newProduct
+	 * @return status 201 if the product id is found and the new product content is correct or 400 if the data is not correct
+	 */
 	@PutMapping("/products/{id}")
 	public ResponseEntity<Product> updateProduct(@PathVariable(value = "id") String id, @RequestBody Product newProduct) {
 		ResponseEntity<Product> responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -78,20 +94,41 @@ public class ProductController {
 		//Optional<Product> product = productManager.addProduct(newProduct);
 		
 		if (product.isPresent()) {
-			Optional<Product> updatedProduct = productManager.addProduct(newProduct);
+			Optional<Product> updatedProduct = productManager.updateProduct(product.get(), newProduct);
 			responseEntity = new ResponseEntity<>(updatedProduct.get(), HttpStatus.CREATED);
 		}
 		
 		return responseEntity;
 	}
 	
+// VERSION PROFE
+//	@PutMapping("/products/{id}")
+//	public ResponseEntity<Product> updateProduct(@PathVariable(value = "id") String id, @RequestBody Product modifiedProduct) {
+//		ResponseEntity<Product> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//		Optional<Product> product = productManager.getProduct(id);
+//		
+//		if (product.isPresent()) {
+//			productManager.updateProduct(id, modifiedProduct);
+//			responseEntity = new ResponseEntity<>(HttpStatus.OK);
+//		}
+//		
+//		return responseEntity;
+//	}
+	/**
+	 * The end point for DELETE {url}/products/{id}
+	 * @param id
+	 * @return status 200 if the product id is found or 204 if the product is not found
+	 */
 	@DeleteMapping("/products/{id}")
 	public ResponseEntity<Product> deleteProduct(@PathVariable(value = "id") String id) {
 		ResponseEntity<Product> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
-		Optional<Product> product = productManager.deleteProduct(id);
+		Optional<Product> product = productManager.getProduct(id);
 		
-		responseEntity = new ResponseEntity<>(product.get(), HttpStatus.OK);
+		if (product.isPresent()) {
+			productManager.deleteProduct(product.get());
+			responseEntity = new ResponseEntity<>(HttpStatus.OK);
+		}
 		
 		return responseEntity;
 	}

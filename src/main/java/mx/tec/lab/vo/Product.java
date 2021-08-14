@@ -1,23 +1,35 @@
 package mx.tec.lab.vo;
 
 import java.util.List;
-
+/**
+ * product class
+ * @author alejandroperez
+ *
+ */
 public class Product {
 	private String id;
 	private String name;
 	private String description;
 	private List<Sku> childSkus;
 	
-
+	/**
+	 * Product constructor
+	 */
 	public Product() {
 		
 	}
 
 	/**
+	 * Product constructor with variables
+	 * id
 	 * @param id
+	 * name
 	 * @param name
+	 * description
 	 * @param description
+	 * child sku
 	 * @param childSkus
+	 * sku
 	 */
 	public Product(String id, String name, String description, List<Sku> childSkus) {
 		this.id = id;

@@ -1,5 +1,10 @@
 package mx.tec.lab.vo;
 
+/**
+ * sku class
+ * @author alejandroperez
+ *
+ */
 public class Sku {
 	private String id;
 	private String color;
@@ -7,8 +12,10 @@ public class Sku {
 	private double listPrice;
 	private double salePrice;
 	private long quantityOnHand;
+	private String smallImageUrl;
+	private String mediumImageUrl;
+	private String largeImageUrl;
 	
-
 	public Sku() {
 
 	}
@@ -20,15 +27,25 @@ public class Sku {
 	 * @param listPrice
 	 * @param salePrice
 	 * @param quantityOnHand
+	 * @param smallImageUrl
+	 * @param mediumImageUrl
+	 * @param largeImageUrl
 	 */
-	public Sku(String id, String color, String size, double listPrice, double salePrice, long quantityOnHand) {
+	public Sku(String id, String color, String size, double listPrice, double salePrice, long quantityOnHand,
+			String smallImageUrl, String mediumImageUrl, String largeImageUrl) {
 		this.id = id;
 		this.color = color;
 		this.size = size;
 		this.listPrice = listPrice;
 		this.salePrice = salePrice;
 		this.quantityOnHand = quantityOnHand;
+		this.smallImageUrl = smallImageUrl;
+		this.mediumImageUrl = mediumImageUrl;
+		this.largeImageUrl = largeImageUrl;
 	}
+
+	
+	
 
 	/**
 	 * @return the id
@@ -113,6 +130,53 @@ public class Sku {
 	public void setQuantityOnHand(long quantityOnHand) {
 		this.quantityOnHand = quantityOnHand;
 	}
+	
+	/**
+	 * @return the smallImageUrl
+	 */
+	public String getSmallImageUrl() {
+		return smallImageUrl;
+	}
+
+	/**
+	 * @param smallImageUrl the smallImageUrl to set
+	 */
+	public void setSmallImageUrl(String smallImageUrl) {
+		this.smallImageUrl = smallImageUrl;
+	}
+	
+	/**
+	 * @param mediumImageUrl the mediumImageUrl to set
+	 */
+	public void setMediumImageUrl(String mediumImageUrl) {
+		this.mediumImageUrl = mediumImageUrl;
+	}
+	
+	/**
+	 * @return the mediumImageUrl
+	 */
+	public String getMediumImageUrl() {
+		return mediumImageUrl;
+	}
+
+	/**
+	 * @return the largeImageUrl
+	 */
+	public String getLargeImageUrl() {
+		return largeImageUrl;
+	}
+
+	/**
+	 * @param largeImageUrl the largeImageUrl to set
+	 */
+	public void setLargeImageUrl(String largeImageUrl) {
+		this.largeImageUrl = largeImageUrl;
+	}
+
+
+
+
+
 
 
 }
